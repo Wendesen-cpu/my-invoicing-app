@@ -16,14 +16,16 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-            steps {
-                script {
-                    sh 'nvm install $NODE_VERSION'
-                    sh 'nvm use $NODE_VERSION'
-                    sh 'npm install'
-                }
+        steps {
+            script {
+                sh '''
+                    source /var/lib/jenkins/.bashrc
+                    nvm install 18
+                    nvm use 18
+                '''
             }
         }
+    }
 
         stage('Build Next.js App') {
             steps {
