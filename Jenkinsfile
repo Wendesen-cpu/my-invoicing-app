@@ -5,7 +5,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        source ~/.bashrc
+                        export NVM_DIR="/var/lib/jenkins/.nvm"
+                        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
                         nvm install 18
                         nvm use 18
                     '''
