@@ -2,36 +2,32 @@ pipeline {
     agent any
 
     environment {
-        NODE_VERSION = "18"
+        NODE_VERSION = "18" // Change to your required version
     }
 
     stages {
-            stage('Checkout Code') {
-                steps {
-                    git branch: 'main', url: 'https://github.com/youruser/your-nextjs-app.git'
-                }
+        stage('Checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'your-jenkins-github-credentials', url: 'git@github.com:your-username/your-repo.git'
             }
-
-            stage('Install Dependencies') {
-                steps {
-                    script {
-                        sh "nvm install $NODE_VERSION || true"
-                        sh "nvm use $NODE_VERSION || true"
-                        sh "npm install"
-                    }
-                }
-            }
-
-            stage('Build Next.js App') {
-                steps {
-                    script {
-                        sh "npm run build"
-                    }
-                }
-            }
-                post {
-            success { echo "Deployment successful! 🚀" }
-            failure { echo "Deployment failed! ❌" }
         }
+
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    sh 'nvm install $NODE_VERSION'
+                    sh 'nvm use $NODE_VERSION'
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Build Next.js App') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+
     }
 }
