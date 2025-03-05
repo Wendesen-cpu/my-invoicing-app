@@ -13,8 +13,8 @@ pipeline {
             steps {
                 script {
                     // Install the specified version of Node.js and dependencies
-                    sh 'curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -'
-                    sh 'apt-get install -y nodejs'
+                   // sh 'curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -'
+                    //sh 'apt-get install -y nodejs'
                     sh 'npm install'
                 }
             }
