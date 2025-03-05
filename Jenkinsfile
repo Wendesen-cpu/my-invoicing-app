@@ -7,12 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout the code from the repository
-                git 'git@github.com:Wendesen-cpu/my-invoicing-app.git'
-            }
-        }
+       
 
         stage('Install Dependencies') {
             steps {
