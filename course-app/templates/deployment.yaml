@@ -1,0 +1,28 @@
+# @format
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.metadata.name }}"
+spec:
+  replicas: 3 # Number of replicas of the Next.js app
+  selector:
+    matchLabels:
+      app: "{{ .Values.metadata.name }}" # Label selector to match pods
+  template:
+    metadata:
+      labels:
+        app: "{{ .Values.metadata.name }}" # Label applied to the pods
+    spec:
+      containers:
+        - name: "{{ .Values.metadata.name }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 3000 # Port exposed by the container (Next.js default)
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi

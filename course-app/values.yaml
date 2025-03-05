@@ -1,0 +1,14 @@
+# @format
+
+replicaCount: 3
+
+image:
+  repository: dockerhubkankoo/course-nextjs-app
+  tag: latest
+  pullPolicy: IfNotPresent
+metadata:
+  name: course-app
+  labels:
+    app: course-app
+port:
+  http: 3000

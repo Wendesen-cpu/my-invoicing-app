@@ -1,0 +1,42 @@
+# @format
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextjs-app
+spec:
+  replicas: 3 # Number of replicas of the Next.js app
+  selector:
+    matchLabels:
+      app: nextjs-app # Label selector to match pods
+  template:
+    metadata:
+      labels:
+        app: nextjs-app # Label applied to the pods
+    spec:
+      containers:
+        - name: nextjs-app
+          image: dockerhubkankoo/course-nextjs-app # Your Docker image here
+          ports:
+            - containerPort: 3000 # Port exposed by the container (Next.js default)
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextjs-app-service
+spec:
+  selector:
+    app: nextjs-app # Select pods with this label
+  ports:
+    - protocol: TCP
+      port: 80 # Port exposed outside the cluster
+      targetPort: 3000 # Port that the Next.js app listens to in the container
+  type: LoadBalancer # You can use NodePort or ClusterIP depending on your setup
