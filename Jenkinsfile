@@ -8,7 +8,10 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'your-jenkins-github-credentials', url: 'git@github.com:your-username/your-repo.git'
+                // Checkout from GitHub using the stored SSH key
+                git branch: 'main',
+                    credentialsId: 'Jenkins-server',  // Use the ID of the credentials you created
+                    url: 'git@github.com:Wendesen-cpu/my-invoicing-app.git'
             }
         }
 
